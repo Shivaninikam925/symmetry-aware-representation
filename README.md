@@ -50,6 +50,12 @@ The figure below compares embedding distances under random permutations.
 
 ---
 
+## Limitations
+-Group Averaging increases computation linearly with group size
+-Finite sampling approximities full group integration
+-Does not learn equivariant intermediate representations
+
 ## Author
+Shivani Nikam
 Second-year BTech CSE student (India)  
 Project developed as a research prototype for symmetry-aware representation learning.
