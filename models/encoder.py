@@ -2,12 +2,14 @@ import torch
 import torch.nn as nn
 
 class PointCloudEncoder(nn.Module):
-    def __init__(self):
+    def __init__(self, n_points=10):
         super().__init__()
+        self.n_points = n_points
+
         self.mlp = nn.Sequential(
-            nn.Linear(2, 64),
+            nn.Linear(2 * n_points, 128),
             nn.ReLU(),
-            nn.Linear(64, 32)
+            nn.Linear(128, 32)
         )
 
     def forward(self, x):
@@ -15,6 +17,6 @@ class PointCloudEncoder(nn.Module):
         x: Tensor of shape (N, 2)
         returns: Tensor of shape (32,)
         """
-        h = self.mlp(x)          # (N, 32)
-        z = h.mean(dim=0)        # (32,)
+        x_flat = x.view(-1)   # (2N,)
+        z = self.mlp(x_flat)
         return z
